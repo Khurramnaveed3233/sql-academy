@@ -1,40 +1,365 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SQL Academy | Professional Data Analytics Training</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo">SQL Academy Pro</div>
-        <div class="progress-bar">Progress: <span id="progressText">0%</span></div>
-    </nav>
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL for Data Analysts – Interactive LMS Dashboard</title>
+    <!-- Custom CSS Style -->
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
 
-    <div class="main-container">
-        <aside class="sidebar" id="sidebar">
-            </aside>
+    <!-- Top Navbar -->
+    <header class="navbar glass-panel animate-fade-in" id="navbar">
+      <div class="nav-left">
+        <!-- Sidebar Toggle for Mobile -->
+        <button class="btn-icon mobile-toggle" id="mobile-sidebar-toggle" aria-label="Toggle Menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <a href="#" class="brand">
+          <div class="logo-icon">SQL</div>
+          <div class="brand-info">
+            <span class="brand-title">SQL for Data Analysts</span>
+            <span class="brand-subtitle">Interactive Learning Ecosystem</span>
+          </div>
+        </a>
+      </div>
 
-        <main class="content-area">
-            <header class="topic-header">
-                <h2 id="topicTitle">Select a topic to start</h2>
-            </header>
+      <div class="nav-right">
+        <!-- Global Learning Progress Tracker -->
+        <div class="global-progress-container">
+          <span class="progress-label">Progress</span>
+          <div class="progress-track">
+            <div class="progress-fill" id="global-progress-fill"></div>
+          </div>
+          <span class="progress-percent" id="global-progress-percent">0%</span>
+        </div>
 
-            <nav class="content-tabs">
-                <button class="tab-btn active" data-tab="explanation">Theory</button>
-                <button class="tab-btn" data-tab="syntax">Syntax</button>
-                <button class="tab-btn" data-tab="examples">Analytics Examples</button>
-            </nav>
+        <!-- Cheatsheet Toggle -->
+        <button class="btn-icon" id="cheatsheet-toggle-btn" title="Open SQL Cheat Sheet">
+          <i data-lucide="file-text"></i>
+        </button>
 
-            <div class="tab-content">
-                <div class="tab-pane active" id="explanation-tab">
-                    <p id="explanationText"></p>
-                    <div class="urdu-note" id="urduExplanation"></div>
-                </div>
-                </div>
-        </main>
+        <!-- Bookmarks Overlay Button -->
+        <div style="position: relative;">
+          <button class="btn-icon" id="bookmarks-trigger-btn" title="Recorded Bookmarks">
+            <i data-lucide="bookmark"></i>
+          </button>
+          <!-- Bookmarks Dropdown -->
+          <div class="bookmarks-dropdown glass-panel" id="bookmarks-dropdown">
+            <div class="bookmarks-title-row">
+              <h5 style="font-weight: 600; font-size: 0.9rem;">My Bookmarks</h5>
+              <i data-lucide="bookmark" style="width: 14px; height: 14px; color: var(--primary);"></i>
+            </div>
+            <div class="bookmarks-list" id="bookmarks-list">
+              <!-- Inline values injected in JS -->
+              <div style="font-size: 0.8rem; color: var(--text-muted); text-align: center; padding: 12px;">No active bookmarks</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark/Light Theme Switching Button -->
+        <button class="btn-icon" id="theme-toggle-btn" title="Toggle Light/Dark Theme">
+          <i data-lucide="sun" id="theme-icon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- App Main Container -->
+    <div class="app-container">
+
+      <!-- Left Sidebar Column -->
+      <aside class="sidebar" id="sidebar">
+        <!-- Topic Search in Sidebar -->
+        <div class="sidebar-search-box">
+          <div class="search-wrapper">
+            <i data-lucide="search" class="search-icon" style="width: 16px; height: 16px;"></i>
+            <input type="text" class="search-input" id="topic-search-input" placeholder="Search SQL Concepts..." />
+          </div>
+        </div>
+
+        <!-- Accordions Folders for levels -->
+        <nav class="topic-accordion" id="topic-accordion">
+          <!-- Accordion directories injected by JS -->
+        </nav>
+      </aside>
+
+      <!-- Right Content View Area -->
+      <main class="content-wrapper" id="content-wrapper">
+        <div class="main-content">
+          
+          <!-- Content Header Card -->
+          <div class="content-header-card glass-panel" id="header-card">
+            <div class="header-meta">
+              <span class="header-level-tag" id="active-level-tag">Level 1 — Core Foundations</span>
+              <h1 class="topic-headline" id="active-topic-title">SQL Introduction</h1>
+            </div>
+            <div class="header-actions">
+              <button class="btn-icon" id="bookmark-topic-btn" title="Bookmark this topic">
+                <i data-lucide="bookmark"></i>
+              </button>
+              <button class="btn-icon" id="complete-topic-btn" title="Toggle Completion Status">
+                <i data-lucide="check-circle"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Content Details Grid -->
+          <div class="details-grid" id="details-grid">
+            
+            <!-- 1. English Definition -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="book-open" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">English Definition</h3>
+              </div>
+              <p class="highlight-text-en" id="sec-english-def">Loading Content...</p>
+            </div>
+
+            <!-- 2. Roman Urdu Explanation -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="message-square" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Roman Urdu Explanation</h3>
+              </div>
+              <p class="highlight-text-ur" id="sec-roman-urdu">Loading Content...</p>
+            </div>
+
+            <!-- 3. Proper Syntax Section -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="terminal" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Proper SQL Syntax</h3>
+              </div>
+              <div class="syntax-block">
+                <button class="copy-badge" id="btn-copy-syntax">Copy</button>
+                <code class="syntax-raw" id="sec-syntax">SELECT * FROM table;</code>
+              </div>
+            </div>
+
+            <!-- 4. Beginner Example -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="award" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Beginner Example</h3>
+              </div>
+              <p style="margin-bottom: 12px; font-weight: 500;" id="sec-beg-desc">Simple query example explanation.</p>
+              <div class="syntax-block" style="margin-bottom: 12px;">
+                <button class="copy-badge" id="btn-copy-beg">Copy</button>
+                <code class="syntax-raw" id="sec-beg-query">SELECT * FROM users;</code>
+              </div>
+            </div>
+
+            <!-- 5. Intermediate Example -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="bar-chart-2" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Intermediate Example</h3>
+              </div>
+              <p style="margin-bottom: 12px; font-weight: 500;" id="sec-int-desc">Practical business database retrieval analysis.</p>
+              <div class="syntax-block" style="margin-bottom: 12px;">
+                <button class="copy-badge" id="btn-copy-int">Copy</button>
+                <code class="syntax-raw" id="sec-int-query">SELECT COUNT(*) FROM payments;</code>
+              </div>
+            </div>
+
+            <!-- 6. Advanced Data Analyst Example -->
+            <div class="details-card" style="border-left: 5px solid var(--primary);">
+              <div class="card-title-bar">
+                <i data-lucide="pie-chart" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Advanced Data Analyst Case (KPIs & Cohorts)</h3>
+              </div>
+              <p style="margin-bottom: 12px; font-weight: 500;" id="sec-adv-desc">Detailed analytics formulation evaluating lifetime value scales.</p>
+              <div class="syntax-block" style="margin-bottom: 12px;">
+                <button class="copy-badge" id="btn-copy-adv">Copy</button>
+                <code class="syntax-raw" id="sec-adv-query">SELECT cohort, revenue FROM warehouse;</code>
+              </div>
+            </div>
+
+            <!-- 7. Why Data Analysts Use This -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="help-circle" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Why Data Analysts Use This</h3>
+              </div>
+              <p id="sec-why-analysts">Why analysts prefer this over standard sheets filters.</p>
+            </div>
+
+            <!-- 8. Real-World Business Scenario -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="briefcase" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Real-World Business Scenario</h3>
+              </div>
+              <p id="sec-business-scenario">SaaS subscriptions or ecommerce pipeline scenario maps.</p>
+            </div>
+
+            <!-- 9. Business Insights Extraction -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="trending-up" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Business Insights Extraction</h3>
+              </div>
+              <p id="sec-insights">How checking this concept boosts revenue or prevents churn cascades.</p>
+            </div>
+
+            <!-- 10. Common Mistakes & Pitfalls -->
+            <div class="details-card" style="border-left: 5px solid #f59e0b;">
+              <div class="card-title-bar" style="color: #f59e0b;">
+                <i data-lucide="alert-triangle" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Common Mistakes & Pitfalls</h3>
+              </div>
+              <p id="sec-mistakes">Watch out for typical aggregate pitfalls or semantic flaws during compilation.</p>
+            </div>
+
+            <!-- 11. Interview Questions & Tips -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="help-circle" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Interview Prep Q&A</h3>
+              </div>
+              <div id="sec-interview">
+                <!-- Interview Q&As will be injected in JS -->
+              </div>
+            </div>
+
+            <!-- 12. Practice Task -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="edit-3" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Hands-on Practice Task</h3>
+              </div>
+              <div class="highlight-text-ur" style="border-color: #f59e0b; margin-bottom: 12px;" id="sec-tasks">
+                Open a test queries shell and compute standard outputs.
+              </div>
+            </div>
+
+            <!-- 13. Expected Output Table -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="table" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">Expected Sample Output Table</h3>
+              </div>
+              <div class="table-scroll-wrapper">
+                <table class="output-table">
+                  <thead id="tbl-headers">
+                    <tr><th>Result Code</th></tr>
+                  </thead>
+                  <tbody id="tbl-rows">
+                    <tr><td>No data loaded</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Interactive Personal Notebook Pad API -->
+            <div class="details-card">
+              <div class="card-title-bar">
+                <i data-lucide="file-edit" style="width: 18px; height: 18px;"></i>
+                <h3 class="card-title">My Personal Notes (Save per Topic)</h3>
+              </div>
+              <div class="notepad-wrap">
+                <textarea class="notes-textarea" id="personal-topic-notes" placeholder="Apnay notes roman urdu me ya english me yahan likhain... automatic save hotay hain!"></textarea>
+                <div class="notes-status-text" id="notes-status">Notes autosaved to LocalStorage.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Sticky Bottom Navigation Pager Controller -->
+        <div class="bottom-navigator glass-panel">
+          <button class="btn-secondary" id="btn-prev-topic">
+            <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+            <span>Previous Concept</span>
+          </button>
+          <div style="font-size: 0.8rem; font-family: var(--font-mono); font-weight: 600;" id="prog-stat-text">
+            Topic 1 of 60
+          </div>
+          <button class="btn-primary" id="btn-next-topic">
+            <span>Next Concept</span>
+            <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+          </button>
+        </div>
+      </main>
+
     </div>
-    <script src="topics_content.js"></script>
-    <script src="script.js"></script>
-</body>
+
+    <!-- Cheatsheet Lightbox Modal Dialog -->
+    <div class="modal-overlay" id="cheatsheet-modal">
+      <div class="modal-card glass-panel">
+        <div class="modal-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="terminal" style="color: var(--primary);"></i>
+            <h3 style="font-size: 1.2rem;">Elite SQL Cheat Sheet & Query Standards</h3>
+          </div>
+          <button class="modal-close-btn" id="modal-close-btn">
+            <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+            Hamesha SQL performance standards ka khayal rakhain standard queries likhtay waqt.
+          </p>
+          <div class="cheatsheet-grid">
+            <div class="cheatsheet-col">
+              <h4>DQL Commands</h4>
+              <div class="cheatsheet-item">
+                <span class="cheatsheet-cmd">SELECT DISTINCT</span>
+                Unique records filtering.
+              </div>
+              <div class="cheatsheet-item">
+                <span class="cheatsheet-cmd">GROUP BY</span>
+                Aggregation collapse key.
+              </div>
+              <div class="cheatsheet-item">
+                <span class="cheatsheet-cmd">HAVING</span>
+                Aggregate function filtering.
+              </div>
+            </div>
+            <div class="cheatsheet-col">
+              <h4>Syntactic Order</h4>
+              <ol style="padding-left: 16px; font-size: 0.8rem;">
+                <li>SELECT</li>
+                <li>FROM</li>
+                <li>JOIN</li>
+                <li>WHERE</li>
+                <li>GROUP BY</li>
+                <li>HAVING</li>
+                <li>ORDER BY</li>
+                <li>LIMIT</li>
+              </ol>
+            </div>
+            <div class="cheatsheet-col">
+              <h4>Advanced Analytic Commands</h4>
+              <div class="cheatsheet-item">
+                <span class="cheatsheet-cmd">SUM OVER()</span>
+                Dynamic sliding balance aggregator.
+              </div>
+              <div class="cheatsheet-item">
+                <span class="cheatsheet-cmd">LEAD / LAG</span>
+                Target offsetting comparison metrics.
+              </div>
+              <div class="cheatsheet-item">
+                <span class="cheatsheet-cmd">DENSE_RANK()</span>
+                High scale dense tied ranking matrix.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Hotkey Short Guide Trigger -->
+    <div class="shortcuts-trigger" id="shortcuts-trigger-btn" title="Shortcuts Quick Guide">
+      <i data-lucide="keyboard"></i>
+    </div>
+
+    <!-- Topics Content Engine -->
+    <script src="/topics_content.js"></script>
+    <!-- Master Interactive Controller -->
+    <script src="/script.js" defer></script>
+  </body>
 </html>
