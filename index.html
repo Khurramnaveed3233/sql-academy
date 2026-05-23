@@ -2,287 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQL for Data Analysts - Learn SQL from Basics to Advanced</title>
+    <title>SQL Academy | Professional Data Analytics Training</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Top Navbar -->
     <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-left">
-                <div class="logo">
-                    <span class="logo-icon">⚡</span>
-                    <span class="logo-text">SQL Academy</span>
-                </div>
-                <h1 class="navbar-title">SQL for Data Analysts</h1>
-            </div>
-            
-            <div class="navbar-center">
-                <div class="search-container">
-                    <input type="text" id="topicSearch" class="search-input" placeholder="Search topics...">
-                    <span class="search-icon">🔍</span>
-                </div>
-            </div>
-            
-            <div class="navbar-right">
-                <div class="progress-indicator">
-                    <span class="progress-label">Progress:</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <span class="progress-text" id="progressText">0%</span>
-                </div>
-                <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode">
-                    <span class="toggle-icon">🌙</span>
-                </button>
-            </div>
-        </div>
+        <div class="logo">SQL Academy Pro</div>
+        <div class="progress-bar">Progress: <span id="progressText">0%</span></div>
     </nav>
 
     <div class="main-container">
-        <!-- Left Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>SQL Roadmap</h2>
-                <button class="hamburger-menu" id="hamburgerMenu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+        <aside class="sidebar" id="sidebar">
+            </aside>
 
-            <div class="sidebar-search">
-                <input type="text" id="sidebarSearch" class="sidebar-search-input" placeholder="Filter topics...">
-            </div>
-
-            <div class="sidebar-content" id="sidebarContent">
-                <!-- Categories will be dynamically generated here -->
-            </div>
-
-            <div class="sidebar-footer">
-                <button class="btn-cheatsheet" id="cheatsheetBtn">📋 SQL Cheatsheet</button>
-            </div>
-        </aside>
-
-        <!-- Main Content Area -->
         <main class="content-area">
-            <div class="content-wrapper" id="contentWrapper">
-                <!-- Welcome Section -->
-                <div class="welcome-section" id="welcomeSection">
-                    <div class="welcome-card">
-                        <h2>Welcome to SQL Academy</h2>
-                        <p>Master SQL from basics to advanced analytics concepts</p>
-                        <div class="welcome-features">
-                            <div class="feature-item">
-                                <span class="feature-icon">📚</span>
-                                <span>100+ Topics</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">🎯</span>
-                                <span>Beginner to Advanced</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">💼</span>
-                                <span>Real-World Examples</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">🏆</span>
-                                <span>Track Progress</span>
-                            </div>
-                        </div>
-                        <button class="btn-primary" onclick="startLearning()">Start Learning →</button>
-                    </div>
+            <header class="topic-header">
+                <h2 id="topicTitle">Select a topic to start</h2>
+            </header>
+
+            <nav class="content-tabs">
+                <button class="tab-btn active" data-tab="explanation">Theory</button>
+                <button class="tab-btn" data-tab="syntax">Syntax</button>
+                <button class="tab-btn" data-tab="examples">Analytics Examples</button>
+            </nav>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="explanation-tab">
+                    <p id="explanationText"></p>
+                    <div class="urdu-note" id="urduExplanation"></div>
                 </div>
-
-                <!-- Topic Content Section -->
-                <div class="topic-content" id="topicContent" style="display: none;">
-                    <!-- Navigation -->
-                    <div class="topic-navigation">
-                        <button class="btn-nav" id="prevBtn" onclick="previousTopic()">← Previous</button>
-                        <span class="topic-breadcrumb" id="topicBreadcrumb"></span>
-                        <button class="btn-nav" id="nextBtn" onclick="nextTopic()">Next →</button>
-                    </div>
-
-                    <!-- Topic Header -->
-                    <div class="topic-header">
-                        <div class="topic-title-section">
-                            <h2 class="topic-title" id="topicTitle"></h2>
-                            <div class="topic-actions">
-                                <button class="btn-icon" id="bookmarkBtn" title="Bookmark this topic">🔖</button>
-                                <button class="btn-icon" id="completeBtn" title="Mark as completed">✓</button>
-                            </div>
-                        </div>
-                        <div class="topic-meta">
-                            <span class="level-badge" id="levelBadge"></span>
-                            <span class="difficulty-badge" id="difficultyBadge"></span>
-                        </div>
-                    </div>
-
-                    <!-- Content Tabs -->
-                    <div class="content-tabs">
-                        <button class="tab-btn active" data-tab="explanation">Explanation</button>
-                        <button class="tab-btn" data-tab="syntax">Syntax</button>
-                        <button class="tab-btn" data-tab="examples">Examples</button>
-                        <button class="tab-btn" data-tab="usecase">Use Case</button>
-                        <button class="tab-btn" data-tab="interview">Interview Q&A</button>
-                        <button class="tab-btn" data-tab="exercises">Exercises</button>
-                        <button class="tab-btn" data-tab="notes">Notes</button>
-                    </div>
-
-                    <!-- Tab Contents -->
-                    <div class="tab-content">
-                        <!-- Explanation Tab -->
-                        <div class="tab-pane active" id="explanation-tab">
-                            <div class="explanation-card">
-                                <h3>Beginner-Friendly Explanation</h3>
-                                <p id="explanationText" class="explanation-text"></p>
-                                <div class="urdu-note">
-                                    <strong>Roman Urdu:</strong>
-                                    <p id="urduExplanation"></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Syntax Tab -->
-                        <div class="tab-pane" id="syntax-tab">
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <span class="code-label">Syntax</span>
-                                    <button class="btn-copy" onclick="copyCode(this)">📋 Copy</button>
-                                </div>
-                                <pre><code id="syntaxCode"></code></pre>
-                            </div>
-                        </div>
-
-                        <!-- Examples Tab -->
-                        <div class="tab-pane" id="examples-tab">
-                            <div class="examples-container">
-                                <div class="example-card">
-                                    <h4>Beginner Example</h4>
-                                    <div class="code-block">
-                                        <div class="code-header">
-                                            <span class="code-label">Basic</span>
-                                            <button class="btn-copy" onclick="copyCode(this)">📋 Copy</button>
-                                        </div>
-                                        <pre><code id="beginnerExample"></code></pre>
-                                    </div>
-                                </div>
-
-                                <div class="example-card">
-                                    <h4>Intermediate Example</h4>
-                                    <div class="code-block">
-                                        <div class="code-header">
-                                            <span class="code-label">Intermediate</span>
-                                            <button class="btn-copy" onclick="copyCode(this)">📋 Copy</button>
-                                        </div>
-                                        <pre><code id="intermediateExample"></code></pre>
-                                    </div>
-                                </div>
-
-                                <div class="example-card">
-                                    <h4>Advanced Data Analyst Example</h4>
-                                    <div class="code-block">
-                                        <div class="code-header">
-                                            <span class="code-label">Advanced</span>
-                                            <button class="btn-copy" onclick="copyCode(this)">📋 Copy</button>
-                                        </div>
-                                        <pre><code id="advancedExample"></code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Use Case Tab -->
-                        <div class="tab-pane" id="usecase-tab">
-                            <div class="usecase-card">
-                                <h3>Real-World Business Use Case</h3>
-                                <p id="businessUseCase"></p>
-                                
-                                <h4>Common Mistakes to Avoid</h4>
-                                <ul id="commonMistakes" class="mistakes-list"></ul>
-
-                                <h4>Output Example</h4>
-                                <div class="output-table">
-                                    <pre id="outputExample"></pre>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Interview Tab -->
-                        <div class="tab-pane" id="interview-tab">
-                            <div class="interview-card">
-                                <h3>Interview Questions & Answers</h3>
-                                <div id="interviewQuestions" class="qa-list"></div>
-                            </div>
-                        </div>
-
-                        <!-- Exercises Tab -->
-                        <div class="tab-pane" id="exercises-tab">
-                            <div class="exercises-card">
-                                <h3>Practice Exercises</h3>
-                                <div id="exercisesList" class="exercises-list"></div>
-                            </div>
-                        </div>
-
-                        <!-- Notes Tab -->
-                        <div class="tab-pane" id="notes-tab">
-                            <div class="notes-card">
-                                <h3>My Notes</h3>
-                                <textarea id="notesTextarea" class="notes-textarea" placeholder="Write your notes here..."></textarea>
-                                <button class="btn-primary" onclick="saveNotes()">Save Notes</button>
-                                <div id="savedNotes" class="saved-notes"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Related Topics -->
-                    <div class="related-topics">
-                        <h3>Related Topics</h3>
-                        <div id="relatedTopicsList" class="related-topics-list"></div>
-                    </div>
                 </div>
-            </div>
         </main>
     </div>
-
-    <!-- Cheatsheet Modal -->
-    <div class="modal" id="cheatsheetModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>SQL Cheatsheet</h2>
-                <button class="modal-close" onclick="closeCheatsheet()">✕</button>
-            </div>
-            <div class="modal-body" id="cheatsheetContent">
-                <!-- Cheatsheet content will be generated here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Bookmark Modal -->
-    <div class="modal" id="bookmarkModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>📚 Your Bookmarks</h2>
-                <button class="modal-close" onclick="closeBookmarks()">✕</button>
-            </div>
-            <div class="modal-body">
-                <div id="bookmarksList" class="bookmarks-list"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2024 SQL Academy. Learn SQL for Data Analysis. Built with ❤️ for aspiring Data Analysts.</p>
-            <div class="footer-links">
-                <a href="#" onclick="scrollToTop()">Back to Top</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
     <script src="topics_content.js"></script>
     <script src="script.js"></script>
 </body>
